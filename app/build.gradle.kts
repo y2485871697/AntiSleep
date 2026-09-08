@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace = "com.antisleep.keepscreen"
-    compileSdk = 37
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.antisleep.keepscreen"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 34
         versionCode = 4
         versionName = "1.4"
     }
