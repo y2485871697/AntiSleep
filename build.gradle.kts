@@ -1,4 +1,3 @@
-// 根构建脚本：只声明 AGP 插件版本
 plugins {
-    id("com.android.application") version "8.5.2" apply false
+    id("com.android.application") version "8.7.1" apply false
 }

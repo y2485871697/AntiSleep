@@ -4,21 +4,35 @@ plugins {
 
 android {
     namespace = "com.antisleep.keepscreen"
-    compileSdk = 34
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.antisleep.keepscreen"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 4
         versionName = "1.4"
     }
 
+    signingConfigs {
+        val releaseStoreFile = System.getenv("ETA_RELEASE_STORE_FILE")
+            ?: rootProject.file("app/signing/eta-release.p12").absolutePath
+        val releaseStorePassword = System.getenv("ETA_RELEASE_STORE_PASSWORD") ?: "eta-release"
+        val releaseKeyAlias = System.getenv("ETA_RELEASE_KEY_ALIAS") ?: "eta"
+        val releaseKeyPassword = System.getenv("ETA_RELEASE_KEY_PASSWORD") ?: "eta-release"
+
+        create("release") {
+            storeFile = file(releaseStoreFile)
+            storePassword = releaseStorePassword
+            keyAlias = releaseKeyAlias
+            keyPassword = releaseKeyPassword
+        }
+    }
+
     buildTypes {
         release {
-            // 防息屏辅助工具，不做混淆；使用 debug 签名便于直接安装
+            signingConfig = signingConfigs.findByName("release")
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
@@ -29,5 +43,4 @@ android {
 }
 
 dependencies {
-    // 零第三方依赖：全部使用 Android 框架 API，降低构建与兼容风险
 }
